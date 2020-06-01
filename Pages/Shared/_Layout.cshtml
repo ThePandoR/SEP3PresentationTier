@@ -33,12 +33,6 @@
                         }
                     </ul>
                 </div>
-                    @if (!string.IsNullOrEmpty(@Context.Session.GetString("username")))
-                    {
-                        <div>
-                            Hello, @Context.Session.GetString("username")
-                        </div>
-                    }
             </div>
         </nav>
     </header>

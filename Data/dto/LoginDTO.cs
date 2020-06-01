@@ -1,6 +1,4 @@
-﻿﻿using System.ComponentModel.DataAnnotations;
-
- namespace SEP3ClientLATEST.Data.dto
+﻿﻿ namespace SEP3ClientLATEST.Data.dto
 {
     public class LoginDTO
     {

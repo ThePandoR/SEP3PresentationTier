@@ -1,4 +1,5 @@
-﻿using System.Security.Authentication;
+﻿using System;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,8 +22,13 @@ namespace SEP3PresentationTier.Pages
             _client = client;
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
+            {
+                return RedirectToPage("/Homepage");
+            }
+            return Page();
         }
 
         public async Task<IActionResult> OnPost(LoginDTO loginDto)
@@ -30,10 +36,12 @@ namespace SEP3PresentationTier.Pages
 
             try
             {
-                var res = await _client.Login(loginDto); 
-                
-                HttpContext.Session.SetString("username",res.username);
+                var res = await _client.Login(loginDto);
+
+                HttpContext.Session.SetString("username", res.username);
                 HttpContext.Session.SetString("userid", $"{res.id}");
+                HttpContext.Session.SetString("usertype", res.type);
+                
 
                 return RedirectToPage("./Homepage");
             }

@@ -40,7 +40,7 @@ namespace SEP3ClientLATEST.Data
             }
         }
 
-        public async Task<AccountDTO> Register(LoginDTO dto)
+        public async Task<AccountDTO> Register(RegisterDTO dto)
         {
             var content = new StringContent(JsonSerializer.Serialize(dto),
                 Encoding.UTF8, "application/json");
@@ -73,8 +73,12 @@ namespace SEP3ClientLATEST.Data
 
         public async Task Vote(long songId)
         {
-            
             await _client.PostAsync($"{addr}/playlist/{songId}/vote", null);
+        }
+
+        public async Task Play(long songId)
+        {
+            await _client.PostAsync($"{addr}/playlist/{songId}/play", null);
         }
     }
 }

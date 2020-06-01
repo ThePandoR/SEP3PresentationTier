@@ -1,6 +1,4 @@
-﻿using System;
-using System.Security.Authentication;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SEP3ClientLATEST.Data;
@@ -11,7 +9,7 @@ namespace SEP3PresentationTier.Pages
     public class Register : PageModel
     {
         [BindProperty]
-        public LoginDTO LoginDto { get; set; }
+        public RegisterDTO RegisterDto { get; set; }
 
         private SEP3BusinessClient _client;
         
@@ -25,13 +23,13 @@ namespace SEP3PresentationTier.Pages
         {
         }
 
-        public async Task<ActionResult> OnPost(LoginDTO loginDto)
+        public async Task<ActionResult> OnPost(RegisterDTO registerDto)
         {
-            Console.WriteLine(loginDto);
+            registerDto.type = "CUSTOMER";
             
-                var res = await _client.Register(loginDto);
+            var res = await _client.Register(registerDto);
 
-                return RedirectPermanent("/");
+            return RedirectPermanent("/");
         }
     }
 }

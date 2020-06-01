@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,8 +17,11 @@ namespace SEP3PresentationTier.Pages
         public string Title { get; set; }
         
         [BindProperty]
-        public long VoteId { get; set; }
-
+        public long SongId { get; set; }
+        
+        [BindProperty]
+        public string Action { get; set; }
+        
         [BindProperty]
         public List<SongRequestDTO> Playlist { get; set; }
 
@@ -45,14 +47,19 @@ namespace SEP3PresentationTier.Pages
             {
                 return RedirectToPage("/Index");
             }
-            if (VoteId != 0)
+
+            switch (Action)
             {
-                await _client.Vote(VoteId);
+                case "Request": await _client.Request(new RequestDTO(Title));
+                    break;
+                case "Vote": await _client.Vote(SongId);
+                    break;
+                case "Play":
+                    await _client.Play(SongId);
+                    break;
             }
-            else
-            {
-                await _client.Request(new RequestDTO(Title));
-            }
+            
+            
             Playlist = await _client.GetPlaylist();
             return Page();
         }

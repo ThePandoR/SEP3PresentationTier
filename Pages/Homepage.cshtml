@@ -1,13 +1,20 @@
 ﻿@page "/home"
-@using SEP3ClientLATEST.Data.dto
 @model SEP3PresentationTier.Pages.Homepage
+
+@using Microsoft.AspNetCore.Http;
+
+<div class="row">
+    <div class="col-12">
+        <h4>Hello, @HttpContext.Session.GetString("username")</h4>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-md-4">
         <div class="p-3 request-form">
             <form method="post">
                 <input type="text" class="form-control" placeholder="Title:" name="Title"/>
-                <input type="submit" class="form-control" value="Request song"/>
+                <input type="submit" class="form-control" name="Action" value="Request"/>
             </form>
         </div>
     </div>
@@ -20,8 +27,13 @@
                     <li>
                         <form method="post">
                             <span class="title">@song.title</span> <span class="votes">@song.votes</span>
-                            <input type="hidden" value="@song.id" name="VoteId"/>
-                            <input type="submit" value="Vote" class="form-control"/>
+                            <input type="hidden" value="@song.id" name="SongId"/>
+                            <input type="submit" name="Action" value="Vote" class="form-control"/>
+
+                            @if (@HttpContext.Session.GetString("usertype") == "DJ")
+                            {
+                                <input type="submit" name="Action" value="Play" class="form-control"/>
+                            }
                         </form>
                     </li>
                 }
