@@ -1,0 +1,23 @@
+﻿@page "/register"
+@model Register
+@{
+    ViewData["Title"] = "Register";
+}
+
+<form method="post" oninput="confirm.setCustomValidity(password.value != confirm.value ? 'Passwords dont match' : '')">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" name="LoginDTO.username" id="username" required>
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" name="LoginDTO.password" id="password" required>
+    </div>
+    
+    <div class="form-group">
+            <label for="confirm">Confirm password</label>
+            <input type="password" class="form-control" id="confirm" required>
+        </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

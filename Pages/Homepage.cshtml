@@ -1,0 +1,32 @@
+﻿@page "/home"
+@using SEP3ClientLATEST.Data.dto
+@model SEP3PresentationTier.Pages.Homepage
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="p-3 request-form">
+            <form method="post">
+                <input type="text" class="form-control" placeholder="Title:" name="Title"/>
+                <input type="submit" class="form-control" value="Request song"/>
+            </form>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        
+            <ul class="playlist">
+                @foreach (var song in Model.Playlist)
+                {
+                    <li>
+                        <form method="post">
+                            <span class="title">@song.title</span> <span class="votes">@song.votes</span>
+                            <input type="hidden" value="@song.id" name="VoteId"/>
+                            <input type="submit" value="Vote" class="form-control"/>
+                        </form>
+                    </li>
+                }
+            </ul>
+    </div>
+    
+    <div class="d-none d-md-block col-md-4"></div>
+</div>
