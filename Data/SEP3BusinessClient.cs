@@ -80,5 +80,14 @@ namespace SEP3ClientLATEST.Data
         {
             await _client.PostAsync($"{addr}/playlist/{songId}/play", null);
         }
+
+        public async Task<List<ProductDTO>> GetMenu()
+        {
+            var response = await _client.GetAsync($"{addr}/menu");
+            
+            var respContent = await response.Content.ReadAsStringAsync();
+
+            return JsonSerializer.Deserialize<List<ProductDTO>>(respContent);
+        }
     }
 }
