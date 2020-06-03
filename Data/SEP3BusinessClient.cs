@@ -89,5 +89,21 @@ namespace SEP3ClientLATEST.Data
 
             return JsonSerializer.Deserialize<List<ProductDTO>>(respContent);
         }
+
+        public async Task<ProductDTO> AddProduct(ProductDTO dto)
+        {
+            var content = new StringContent(JsonSerializer.Serialize(dto),
+                Encoding.UTF8, "application/json");
+            var response = await _client.PostAsync($"{addr}/menu", content);
+            
+            var respContent = await response.Content.ReadAsStringAsync();
+
+            return JsonSerializer.Deserialize<ProductDTO>(respContent);
+        }
+
+        public async Task RemoveProduct(long id)
+        {
+            await _client.DeleteAsync($"{addr}/menu/{id}");
+        }
     }
 }
