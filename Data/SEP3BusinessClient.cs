@@ -16,6 +16,7 @@ namespace SEP3ClientLATEST.Data
 
         public SEP3BusinessClient()
         {
+            //Could not install SSL certificate, temporary fix to ignore certificate validation
             var handler = new HttpClientHandler() {
                 ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
             };
